@@ -2,20 +2,30 @@
 
 enum class Nivel { BASICO, INTERMEDIARIO, DIFICIL }
 
-class Usuario
+class Usuario(val nome: String, val matricula: Int)
 
 data class ConteudoEducacional(var nome: String, val duracao: Int = 60)
 
-data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) {
+data class Formacao(val nome: String, val nivel: Nivel, var conteudos: List<ConteudoEducacional>) {
 
     val inscritos = mutableListOf<Usuario>()
-    
-    fun matricular(usuario: Usuario) {
-        TODO("Utilize o parâmetro $usuario para simular uma matrícula (usar a lista de $inscritos).")
+
+    fun matricular(vararg usuarios: Usuario) {
+        inscritos.addAll(usuarios)
     }
 }
 
 fun main() {
-    TODO("Analise as classes modeladas para este domínio de aplicação e pense em formas de evoluí-las.")
-    TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
+    val usuario1 = Usuario("Pedro", 111)
+    val usuario2 = Usuario("Paulo", 112)
+
+    val conteudo1 = ConteudoEducacional("Introdução ao Kotlin", 60)
+    val conteudo2 = ConteudoEducacional("Avançado Kotlin", 120)
+
+    val conteudos = listOf(conteudo1, conteudo2)
+    val formacao1 = Formacao("Kotlin Backend", Nivel.INTERMEDIARIO, conteudos)
+
+    formacao1.matricular(usuario1, usuario2)
+
+    println(formacao1)
 }
